@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="IdermaCapilar_Historial.Pages.EnfermerasPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:IdermaCapilar_Historial.Models"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource PageRootStyle}" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Enfermeras" />
+                <TextBlock Opacity="0.7" Text="{x:Bind ViewModel.Resumen, Mode=OneWay}" />
+            </StackPanel>
+            <Button
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Click="Nuevo_Click"
+                Content="Nueva enfermera"
+                Style="{StaticResource AccentButtonStyle}" />
+        </Grid>
+
+        <AutoSuggestBox
+            Grid.Row="1"
+            Height="36"
+            VerticalAlignment="Center"
+            PlaceholderText="Buscar por nombre, área o CEP"
+            QueryIcon="Find"
+            Text="{x:Bind ViewModel.Busqueda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Border Grid.Row="2" Padding="8" Style="{StaticResource CardBorderStyle}">
+            <Grid>
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="8"
+                    Visibility="{x:Bind ViewModel.SinEnfermeras, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                    <FontIcon FontSize="36" Glyph="&#xE77B;" Opacity="0.5" />
+                    <TextBlock HorizontalAlignment="Center" Opacity="0.7" Text="No hay enfermeras registradas." />
+                    <Button HorizontalAlignment="Center" Click="Nuevo_Click" Content="Agregar enfermera" />
+                </StackPanel>
+                <ListView
+                    ItemsSource="{x:Bind ViewModel.Enfermeras, Mode=OneWay}"
+                    SelectionMode="None"
+                    Visibility="{x:Bind ViewModel.HayEnfermeras, Mode=OneWay, Converter={StaticResource BoolToVisibility}}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Enfermera">
+                            <Grid Padding="8,10" ColumnSpacing="14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <PersonPicture DisplayName="{x:Bind NombreMostrado}" Height="46" Width="46" />
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock FontWeight="SemiBold" Text="{x:Bind NombreMostrado}" />
+                                    <TextBlock Opacity="0.75" Text="{x:Bind Subtitulo}" />
+                                    <TextBlock
+                                        Opacity="0.6"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{x:Bind Telefono}"
+                                        Visibility="{x:Bind Telefono, Converter={StaticResource NullToVisibility}}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                    <Button Click="Editar_Click" Content="Editar" Tag="{x:Bind}" />
+                                    <Button Click="Eliminar_Click" Content="Quitar" Tag="{x:Bind}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

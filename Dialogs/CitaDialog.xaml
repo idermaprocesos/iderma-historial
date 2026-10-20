@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="IdermaCapilar_Historial.Dialogs.CitaDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dialogs="using:IdermaCapilar_Historial.Dialogs"
+    Title="Cita"
+    CloseButtonText="Cancelar"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimary"
+    PrimaryButtonText="Guardar"
+    SecondaryButtonText="Eliminar"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <ScrollViewer MaxHeight="640" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel MinWidth="480" Spacing="12">
+        <AutoSuggestBox
+            x:Name="PacienteBox"
+            Header="Paciente *"
+            PlaceholderText="Buscar por nombre, expediente o documento"
+            QueryIcon="Find"
+            SuggestionChosen="Paciente_SuggestionChosen"
+            TextChanged="Paciente_TextChanged" />
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <CalendarDatePicker
+                x:Name="FechaBox"
+                Header="Fecha"
+                HorizontalAlignment="Stretch"
+                DateChanged="FechaBox_DateChanged" />
+            <ComboBox
+                x:Name="HoraBox"
+                Grid.Column="1"
+                Header="Hora"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Seleccionar hora" />
+        </Grid>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                x:Name="TipoBox"
+                Header="Tipo de cita"
+                HorizontalAlignment="Stretch">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Border
+                                Width="14"
+                                Height="14"
+                                VerticalAlignment="Center"
+                                Background="{Binding Brocha}"
+                                CornerRadius="4" />
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Nombre}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <NumberBox
+                x:Name="DuracionBox"
+                Grid.Column="1"
+                Header="Duración (minutos)"
+                Maximum="480"
+                Minimum="5"
+                SmallChange="15"
+                SpinButtonPlacementMode="Compact"
+                ValueChanged="DuracionBox_ValueChanged" />
+        </Grid>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                x:Name="EstadoBox"
+                Header="Estado"
+                HorizontalAlignment="Stretch" />
+            <ComboBox
+                x:Name="TemperamentoBox"
+                Grid.Column="1"
+                Header="Temperamento del paciente"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+        <ComboBox
+            x:Name="MedicoBox"
+            Header="Médico"
+            HorizontalAlignment="Stretch"
+            PlaceholderText="Seleccionar médico"
+            SelectionChanged="MedicoBox_SelectionChanged" />
+        <TextBox
+            x:Name="NotasBox"
+            AcceptsReturn="True"
+            Header="Notas"
+            Height="80"
+            PlaceholderText="Motivo, indicaciones o recordatorio"
+            TextWrapping="Wrap" />
+        <TextBlock
+            x:Name="AvisoText"
+            Opacity="0.75"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+        <Button
+            x:Name="ComprobanteButton"
+            HorizontalAlignment="Left"
+            Click="Comprobante_Click"
+            Content="Boleta o factura" />
+        <dialogs:ComprobantePanel
+            x:Name="Comprobante"
+            Visibility="Collapsed" />
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+    </StackPanel>
+    </ScrollViewer>
+</ContentDialog>

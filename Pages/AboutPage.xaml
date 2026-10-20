@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="IdermaCapilar_Historial.Pages.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel MaxWidth="720" Padding="28,20,28,24" Spacing="16">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Acerca de" />
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="10">
+                    <TextBlock FontWeight="SemiBold" Foreground="{StaticResource IdermaTealBrush}" Text="IDERMA CAPILAR" />
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Historial médico de pacientes" />
+                    <TextBlock Opacity="0.8" TextWrapping="Wrap" Text="Aplicación de escritorio para gestionar expedientes clínicos de dermatología láser y trasplante capilar: datos personales, contacto de emergencia, antecedentes médicos, evaluación capilar, operaciones y observaciones de seguimiento." />
+                    <TextBlock Opacity="0.7" Text="Versión 1.0.0" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="8">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Confidencialidad" />
+                    <TextBlock Opacity="0.8" TextWrapping="Wrap" Text="La información clínica se almacena únicamente en este equipo. Use la opción de respaldo en Ajustes y restrinja el acceso al usuario de Windows de la clínica. No sustituye la historia clínica oficial si su jurisdicción exige un sistema homologado." />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

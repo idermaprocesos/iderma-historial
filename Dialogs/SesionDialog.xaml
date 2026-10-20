@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="IdermaCapilar_Historial.Dialogs.SesionDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Sesión"
+    CloseButtonText="Cancelar"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimary"
+    PrimaryButtonText="Guardar"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <StackPanel MinWidth="440" Spacing="12">
+        <TextBlock
+            Opacity="0.75"
+            Text="Cada sesión de la operación tiene su propia fecha y su propio rango de horas."
+            TextWrapping="Wrap" />
+        <CalendarDatePicker
+            x:Name="FechaBox"
+            Header="Fecha"
+            HorizontalAlignment="Stretch" />
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TimePicker
+                x:Name="InicioPicker"
+                ClockIdentifier="24HourClock"
+                Header="Desde"
+                MinuteIncrement="5"
+                TimeChanged="Horario_Changed" />
+            <TimePicker
+                x:Name="FinPicker"
+                Grid.Column="1"
+                ClockIdentifier="24HourClock"
+                Header="Hasta"
+                MinuteIncrement="5"
+                TimeChanged="Horario_Changed" />
+        </Grid>
+        <TextBlock
+            x:Name="RangoText"
+            Opacity="0.8"
+            TextWrapping="Wrap" />
+        <StackPanel x:Name="EstadoPanel">
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Estado de la sesión" />
+            <ComboBox x:Name="EstadoBox" HorizontalAlignment="Stretch" />
+        </StackPanel>
+        <StackPanel x:Name="NotasPanel">
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Notas de esta sesión" />
+            <TextBox
+                x:Name="NotasBox"
+                AcceptsReturn="True"
+                Height="72"
+                PlaceholderText="Qué zona o paso corresponde a este horario..."
+                TextWrapping="Wrap" />
+        </StackPanel>
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

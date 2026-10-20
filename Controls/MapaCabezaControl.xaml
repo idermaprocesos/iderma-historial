@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="IdermaCapilar_Historial.Controls.MapaCabezaControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel x:Name="RaizPanel" Spacing="12">
+        <TextBlock
+            x:Name="TituloText"
+            HorizontalAlignment="Center"
+            Style="{StaticResource SectionTitleStyle}"
+            Text="Mapa de zonas" />
+        <TextBlock
+            x:Name="LeyendaText"
+            HorizontalAlignment="Center"
+            Opacity="0.75"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            Text="Elija cabeza, frente o dorso. Pulse el mapa o un botón para marcar o quitar una zona."
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
+
+        <RadioButtons
+            x:Name="VistaBox"
+            HorizontalAlignment="Center"
+            MaxColumns="3"
+            SelectionChanged="Vista_SelectionChanged">
+            <RadioButton Content="Cabeza" Tag="Cabeza" IsChecked="True" />
+            <RadioButton Content="Frente" Tag="Frente" />
+            <RadioButton Content="Dorso" Tag="Dorso" />
+        </RadioButtons>
+
+        <StackPanel x:Name="LecturaMapas" Spacing="16" Visibility="Collapsed" />
+
+        <Grid x:Name="MapaYTabla" ColumnSpacing="20" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="220" />
+            </Grid.ColumnDefinitions>
+            <Viewbox
+                x:Name="MapaViewbox"
+                MaxWidth="360"
+                MaxHeight="360"
+                Stretch="Uniform"
+                VerticalAlignment="Center">
+                <Grid
+                    x:Name="MapaGrid"
+                    Width="1000"
+                    Height="1000"
+                    Background="Transparent"
+                    PointerPressed="Mapa_PointerPressed"
+                    ToolTipService.ToolTip="Pulse una zona del dibujo para marcarla o quitarla.">
+                    <Image
+                        x:Name="BaseImage"
+                        IsHitTestVisible="False"
+                        Stretch="Uniform" />
+                    <Grid x:Name="CapasZonas" IsHitTestVisible="False" />
+                </Grid>
+            </Viewbox>
+
+            <Border
+                x:Name="TablaBorde"
+                Grid.Column="1"
+                MinWidth="220"
+                Padding="12,10"
+                VerticalAlignment="Center"
+                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="10">
+                <StackPanel Spacing="8">
+                    <TextBlock x:Name="TablaTitulo" FontWeight="SemiBold" Text="Zonas operadas" />
+                    <Grid
+                        x:Name="TablaZonas"
+                        ColumnSpacing="12"
+                        RowSpacing="6" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid
+            x:Name="ChipsGrid"
+            ColumnSpacing="10"
+            RowSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackPanel>
+</UserControl>

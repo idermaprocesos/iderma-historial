@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "IdermaCapilar.Historial (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "IdermaCapilar.Historial (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

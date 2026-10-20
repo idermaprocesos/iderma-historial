@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="IdermaCapilar_Historial.Dialogs.ComprobantePanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel MinWidth="440" Spacing="10">
+        <TextBlock
+            Opacity="0.75"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            TextWrapping="Wrap"
+            Text="El documento lleva el logo de Iderma, los datos de la clínica y el detalle de lo que está pagando." />
+        <TextBlock x:Name="CitaResumen" Opacity="0.8" TextWrapping="Wrap" />
+        <ComboBox
+            x:Name="TipoBox"
+            Header="Tipo de comprobante"
+            HorizontalAlignment="Stretch"
+            SelectionChanged="TipoBox_SelectionChanged" />
+        <TextBox
+            x:Name="ConceptoBox"
+            Header="Lo que está pagando *"
+            PlaceholderText="Consulta, sesión, procedimiento..." />
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <NumberBox
+                x:Name="MontoBox"
+                Header="Monto (S/) *"
+                Minimum="0"
+                SmallChange="10"
+                SpinButtonPlacementMode="Compact" />
+            <ComboBox
+                x:Name="PagoBox"
+                Grid.Column="1"
+                Header="Forma de pago"
+                HorizontalAlignment="Stretch" />
+        </Grid>
+        <TextBox x:Name="ClienteBox" Header="Cliente *" />
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="DocumentoBox" Header="DNI" />
+            <TextBox
+                x:Name="CorreoBox"
+                Grid.Column="1"
+                Header="Correo"
+                PlaceholderText="correo@ejemplo.com" />
+        </Grid>
+        <TextBlock
+            x:Name="InfoText"
+            Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            TextWrapping="Wrap"
+            Visibility="Collapsed" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button
+                x:Name="GenerarButton"
+                Click="Generar_Click"
+                Content="Generar documento"
+                Style="{StaticResource AccentButtonStyle}" />
+            <Button
+                x:Name="EnviarButton"
+                Click="Enviar_Click"
+                Content="Enviar por correo" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

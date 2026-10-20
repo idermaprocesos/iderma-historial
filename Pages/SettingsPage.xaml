@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="IdermaCapilar_Historial.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:IdermaCapilar_Historial.Models"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel MaxWidth="760" Padding="28,20,28,24" Spacing="16">
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Ajustes" />
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Agenda de citas" />
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TimePicker x:Name="HoraInicioPicker" ClockIdentifier="24HourClock" Header="Hora de inicio" />
+                        <TimePicker x:Name="HoraFinPicker" Grid.Column="1" ClockIdentifier="24HourClock" Header="Hora de cierre" />
+                    </Grid>
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            x:Name="DuracionCitaBox"
+                            Header="Duración predeterminada"
+                            HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="15 minutos" Tag="15" />
+                            <ComboBoxItem Content="20 minutos" Tag="20" />
+                            <ComboBoxItem Content="30 minutos" Tag="30" />
+                            <ComboBoxItem Content="45 minutos" Tag="45" />
+                            <ComboBoxItem Content="60 minutos" Tag="60" />
+                            <ComboBoxItem Content="90 minutos" Tag="90" />
+                        </ComboBox>
+                        <ComboBox
+                            x:Name="IntervaloCitaBox"
+                            Grid.Column="1"
+                            Header="Intervalo en la vista diaria"
+                            HorizontalAlignment="Stretch">
+                            <ComboBoxItem Content="15 minutos" Tag="15" />
+                            <ComboBoxItem Content="30 minutos" Tag="30" />
+                            <ComboBoxItem Content="60 minutos" Tag="60" />
+                        </ComboBox>
+                    </Grid>
+                    <ComboBox
+                        x:Name="VistaCitaBox"
+                        Header="Vista inicial del calendario"
+                        HorizontalAlignment="Stretch"
+                        ItemsSource="{x:Bind VistasCalendario}" />
+                    <StackPanel Orientation="Horizontal" Spacing="24">
+                        <ToggleSwitch
+                            x:Name="SabadoSwitch"
+                            Header="Atender sábados"
+                            OffContent="No"
+                            OnContent="Sí" />
+                        <ToggleSwitch
+                            x:Name="DomingoSwitch"
+                            Header="Atender domingos"
+                            OffContent="No"
+                            OnContent="Sí" />
+                    </StackPanel>
+                    <TextBlock
+                        Opacity="0.7"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        TextWrapping="Wrap"
+                        Text="El horario define las franjas de la vista diaria. Los sábados y domingos se marcan como no laborables si están desactivados." />
+                    <Button Click="GuardarAgenda_Click" Content="Guardar agenda" Style="{StaticResource AccentButtonStyle}" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Motivos y colores del calendario" />
+                    <TextBlock
+                        Opacity="0.7"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        TextWrapping="Wrap"
+                        Text="Agregue, cambie o quite los motivos de citas y operaciones, y elija el color con el que aparecen en el calendario." />
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="8">
+                            <Grid>
+                                <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" Text="Citas" />
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    Click="NuevoMotivoCita_Click"
+                                    Content="Agregar" />
+                            </Grid>
+                            <ListView
+                                x:Name="MotivosCitaLista"
+                                MaxHeight="280"
+                                SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="Padding" Value="0,4" />
+                                        <Setter Property="MinHeight" Value="0" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:TipoAgendaConfig">
+                                        <Grid ColumnSpacing="8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border
+                                                Width="18"
+                                                Height="18"
+                                                VerticalAlignment="Center"
+                                                Background="{x:Bind Brocha}"
+                                                CornerRadius="4" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Text="{x:Bind Nombre}"
+                                                TextTrimming="CharacterEllipsis" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Click="EditarMotivoCita_Click"
+                                                Content="Editar"
+                                                Tag="{x:Bind}" />
+                                            <Button
+                                                Grid.Column="3"
+                                                Click="EliminarMotivoCita_Click"
+                                                Content="Quitar"
+                                                Tag="{x:Bind}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Spacing="8">
+                            <Grid>
+                                <TextBlock VerticalAlignment="Center" FontWeight="SemiBold" Text="Operaciones" />
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    Click="NuevoMotivoOperacion_Click"
+                                    Content="Agregar" />
+                            </Grid>
+                            <ListView
+                                x:Name="MotivosOperacionLista"
+                                MaxHeight="280"
+                                SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        <Setter Property="Padding" Value="0,4" />
+                                        <Setter Property="MinHeight" Value="0" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:TipoAgendaConfig">
+                                        <Grid ColumnSpacing="8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border
+                                                Width="18"
+                                                Height="18"
+                                                VerticalAlignment="Center"
+                                                Background="{x:Bind Brocha}"
+                                                CornerRadius="4" />
+                                            <TextBlock
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Text="{x:Bind Nombre}"
+                                                TextTrimming="CharacterEllipsis" />
+                                            <Button
+                                                Grid.Column="2"
+                                                Click="EditarMotivoOperacion_Click"
+                                                Content="Editar"
+                                                Tag="{x:Bind}" />
+                                            <Button
+                                                Grid.Column="3"
+                                                Click="EliminarMotivoOperacion_Click"
+                                                Content="Quitar"
+                                                Tag="{x:Bind}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </Grid>
+                    <Button Click="RestaurarMotivos_Click" Content="Restaurar motivos predeterminados" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Autoguardado" />
+                    <ToggleSwitch
+                        x:Name="AutoSwitch"
+                        Header="Guardar cambios y copias de seguridad automáticamente"
+                        OffContent="Desactivado"
+                        OnContent="Activado"
+                        Toggled="AutoSwitch_Toggled" />
+                    <ComboBox
+                        x:Name="IntervaloBox"
+                        Header="Copia de seguridad periódica"
+                        HorizontalAlignment="Left"
+                        MinWidth="260"
+                        SelectionChanged="Intervalo_SelectionChanged">
+                        <ComboBoxItem Content="Cada 10 minutos" Tag="10" />
+                        <ComboBoxItem Content="Cada 15 minutos" Tag="15" />
+                        <ComboBoxItem Content="Cada 30 minutos" Tag="30" />
+                        <ComboBoxItem Content="Cada 60 minutos" Tag="60" />
+                    </ComboBox>
+                    <TextBlock
+                        Opacity="0.7"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="El expediente se guarda unos segundos después de escribir. La copia ZIP es aparte y ya no se hace cada 1 o 2 minutos, porque eso estaba dañando la base de datos." />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardBorderStyle}">
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Exportar e importar" />
+                    <TextBlock
+                        Opacity="0.8"
+                        TextWrapping="Wrap"
+                        Text="Exporte todos los expedientes, fotos y ajustes a un archivo ZIP. Al importar se reemplazan los datos actuales (antes se crea una copia de seguridad)." />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Click="Exportar_Click" Content="Exportar datos" Style="{StaticResource AccentButtonStyle}" />
+                        <Button Click="Importar_Click" Content="Importar datos" />
+                        <Button Click="AbrirCarpeta_Click" Content="Abrir carpeta de datos" />
+                    </StackPanel>
+                    <TextBlock x:Name="RutaText" IsTextSelectionEnabled="True" Opacity="0.75" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        </ScrollViewer>
+
+        <InfoBar
+            x:Name="Info"
+            Canvas.ZIndex="10"
+            IsOpen="False"
+            Style="{StaticResource OverlayInfoBarStyle}" />
+    </Grid>
+</Page>

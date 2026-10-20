@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="IdermaCapilar_Historial.Dialogs.TipoMotivoDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Motivo"
+    CloseButtonText="Cancelar"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimary"
+    PrimaryButtonText="Guardar"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <StackPanel MinWidth="420" Spacing="12">
+        <TextBox
+            x:Name="NombreBox"
+            Header="Nombre del motivo"
+            PlaceholderText="Consulta, trasplante, control..." />
+        <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Color en el calendario" />
+        <ColorPicker
+            x:Name="ColorBox"
+            IsAlphaEnabled="False"
+            IsColorChannelTextInputVisible="True"
+            IsHexInputVisible="True" />
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

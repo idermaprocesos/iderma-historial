@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="IdermaCapilar_Historial.Dialogs.DoctorDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Doctor"
+    CloseButtonText="Cancelar"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimary"
+    PrimaryButtonText="Guardar"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <StackPanel MinWidth="460" Spacing="12">
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                x:Name="TituloBox"
+                Header="Título"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Dr." />
+            <TextBox
+                x:Name="NombresBox"
+                Grid.Column="1"
+                Header="Nombres *"
+                PlaceholderText="Nombres" />
+            <TextBox
+                x:Name="ApellidosBox"
+                Grid.Column="2"
+                Header="Apellidos *"
+                PlaceholderText="Apellidos" />
+        </Grid>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                x:Name="EspecialidadBox"
+                Header="Especialidad"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Seleccionar" />
+            <TextBox
+                x:Name="CmpBox"
+                Grid.Column="1"
+                Header="CMP / colegiatura"
+                PlaceholderText="Número de colegiatura" />
+        </Grid>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TelefonoBox" Header="Teléfono" InputScope="TelephoneNumber" PlaceholderText="999 000 000" TextChanging="Telefono_TextChanging" />
+            <TextBox x:Name="EmailBox" Grid.Column="1" Header="Correo" />
+        </Grid>
+        <ToggleSwitch
+            x:Name="ActivoSwitch"
+            Header="Estado"
+            OffContent="Inactivo"
+            OnContent="Activo" />
+        <CheckBox x:Name="PredeterminadoBox" Content="Usar como médico predeterminado en operaciones y observaciones" />
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

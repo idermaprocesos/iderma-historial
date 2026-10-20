@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="IdermaCapilar_Historial.Dialogs.ContactoDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Contacto de emergencia"
+    CloseButtonText="Cancelar"
+    DefaultButton="Primary"
+    PrimaryButtonClick="OnPrimary"
+    PrimaryButtonText="Guardar"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <StackPanel MinWidth="420" Spacing="12">
+        <StackPanel>
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Nombre completo *" />
+            <TextBox x:Name="NombreBox" />
+        </StackPanel>
+        <StackPanel>
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Parentesco / relación" />
+            <ComboBox
+                x:Name="RelacionBox"
+                HorizontalAlignment="Stretch"
+                PlaceholderText="Seleccionar" />
+        </StackPanel>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Teléfono *" />
+                <TextBox x:Name="TelefonoBox" InputScope="TelephoneNumber" PlaceholderText="999 000 000" TextChanging="Telefono_TextChanging" />
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Teléfono alterno" />
+                <TextBox x:Name="TelefonoAltBox" InputScope="TelephoneNumber" PlaceholderText="999 000 000" TextChanging="Telefono_TextChanging" />
+            </StackPanel>
+        </Grid>
+        <StackPanel>
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Correo" />
+            <TextBox x:Name="EmailBox" />
+        </StackPanel>
+        <StackPanel>
+            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="Dirección" />
+            <TextBox x:Name="DireccionBox" />
+        </StackPanel>
+        <TextBlock
+            x:Name="ErrorText"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            Visibility="Collapsed" />
+    </StackPanel>
+</ContentDialog>

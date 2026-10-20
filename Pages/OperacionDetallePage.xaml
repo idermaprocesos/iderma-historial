@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="IdermaCapilar_Historial.Pages.OperacionDetallePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:IdermaCapilar_Historial.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Style="{StaticResource PageRootStyle}" RowSpacing="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Spacing="2">
+                <TextBlock
+                    x:Name="TituloText"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="SubtituloText"
+                    Opacity="0.75"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="DescripcionText"
+                    Margin="0,6,0,0"
+                    Opacity="0.78"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button Click="Editar_Click" Content="Editar datos" />
+                <Button Click="Expediente_Click" Content="Ver expediente" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Padding="16" Style="{StaticResource CardBorderStyle}">
+            <StackPanel Spacing="10">
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Spacing="2">
+                        <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Sesiones" />
+                        <TextBlock
+                            Opacity="0.7"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="Programe varias sesiones de esta operación. Cada una lleva su fecha y su rango de horas."
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <Button
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Click="NuevaSesion_Click"
+                        Content="Programar sesión" />
+                </Grid>
+                <ScrollViewer MaxHeight="220" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="SesionesPanel" Spacing="6" />
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="2" ColumnSpacing="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.95*" />
+                <ColumnDefinition Width="1.15*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Padding="16" Style="{StaticResource CardBorderStyle}">
+                <ScrollViewer>
+                    <controls:MapaCabezaControl x:Name="MapaCabeza" ZonasChanged="Mapa_ZonasChanged" />
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="1" Padding="16" Style="{StaticResource CardBorderStyle}">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <StackPanel Spacing="2">
+                            <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Procedimiento paso a paso" />
+                            <TextBlock
+                                x:Name="ChecklistResumenText"
+                                Opacity="0.7"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="8">
+                            <HyperlinkButton Click="MarcarTodos_Click" Content="Marcar todos" Padding="4,0" />
+                            <HyperlinkButton Click="DesmarcarTodos_Click" Content="Limpiar" Padding="4,0" />
+                        </StackPanel>
+                    </Grid>
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel Spacing="16">
+                            <StackPanel x:Name="ChecklistPanel" Spacing="2" />
+                            <StackPanel Spacing="6">
+                                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Observaciones del médico" />
+                                <TextBox
+                                    x:Name="ObsMedicoBox"
+                                    AcceptsReturn="True"
+                                    MinHeight="96"
+                                    PlaceholderText="Hallazgos, técnica, tolerancia, indicaciones y plan..."
+                                    TextWrapping="Wrap"
+                                    LostFocus="ObsMedicoBox_LostFocus" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Button
+                        x:Name="CompletarButton"
+                        Grid.Row="2"
+                        MinWidth="220"
+                        HorizontalAlignment="Right"
+                        Click="Completar_Click"
+                        Content="Completar operación"
+                        IsEnabled="False"
+                        Style="{StaticResource AccentButtonStyle}" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

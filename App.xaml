@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="IdermaCapilar_Historial.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="using:IdermaCapilar_Historial.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <conv:NullToVisibilityConverter x:Key="NullToVisibility" />
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
+            <conv:NullableDoubleConverter x:Key="NullableDouble" />
+            <conv:NullableIntConverter x:Key="NullableInt" />
+            <conv:CalendarDateConverter x:Key="CalendarDate" />
+
+            <SolidColorBrush x:Key="IdermaTealBrush" Color="#0E6B6B" />
+            <SolidColorBrush x:Key="IdermaTealDarkBrush" Color="#0A4F4F" />
+            <SolidColorBrush x:Key="IdermaGoldBrush" Color="#C4A35A" />
+            <SolidColorBrush x:Key="IdermaSoftBrush" Color="#E7F3F3" />
+
+            <Style x:Key="PageRootStyle" TargetType="Grid">
+                <Setter Property="Padding" Value="28,20,28,24" />
+            </Style>
+
+            <Style x:Key="SectionTitleStyle" TargetType="TextBlock" BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+
+            <Style x:Key="FieldLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+                <Setter Property="Margin" Value="0,0,0,6" />
+                <Setter Property="Opacity" Value="0.8" />
+            </Style>
+
+            <Style x:Key="CardBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="20" />
+            </Style>
+
+            <Style x:Key="StatCardStyle" TargetType="Border" BasedOn="{StaticResource CardBorderStyle}">
+                <Setter Property="Padding" Value="18,16" />
+                <Setter Property="MinHeight" Value="108" />
+            </Style>
+
+            <Style x:Key="StatCardButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+                <Setter Property="MinHeight" Value="108" />
+                <Setter Property="Padding" Value="18,16" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Fondo" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CardBackgroundFillColorSecondaryBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Fondo" Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="Brillo"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.12"
+                                                    Duration="0:0:0.05" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="Contenido"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.5"
+                                                    Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border
+                                    x:Name="Fondo"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                                <Border
+                                    x:Name="Brillo"
+                                    Background="{ThemeResource SubtleFillColorSecondaryBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0" />
+                                <ContentPresenter
+                                    x:Name="Contenido"
+                                    Padding="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CitaTarjetaButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="Brillo"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.22"
+                                                    Duration="0:0:0.08" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="Brillo"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.32"
+                                                    Duration="0:0:0.05" />
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="Contenido"
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0.5"
+                                                    Duration="0" />
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}" />
+                                <Border
+                                    x:Name="Brillo"
+                                    Background="White"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    IsHitTestVisible="False"
+                                    Opacity="0" />
+                                <ContentPresenter
+                                    x:Name="Contenido"
+                                    Padding="{TemplateBinding Padding}"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SlotRowButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+
+            <Style x:Key="OverlayInfoBarStyle" TargetType="InfoBar">
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="IsClosable" Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
